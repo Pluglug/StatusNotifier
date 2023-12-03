@@ -269,7 +269,7 @@ class TEXT_OT_activate_handler(Operator):
 
 def activate_handler():
     bpy.ops.text.activate_handler()
-    return None
+    return None  # properly removed here.
 
 
 def register():
