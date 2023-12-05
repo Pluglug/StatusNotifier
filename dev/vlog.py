@@ -2,8 +2,7 @@ import contextlib
 import inspect
 import os
 
-# from .addon import ADDON_ID
-Labels.ADDON_ID = "status_notifier"  # bpy.context.preferences.addons[__name__].bl_info['name']
+from addon import ADDON_ID
 
 
 CONSOLE_COLOR_INFO = '\033[34m'
