@@ -17,7 +17,7 @@ CONSOLE_COLOR_WARNING = '\033[33m'
 class VisualLog:
     def __init__(self):
         self.indent_level = 0
-        self.inspect_enabled = False
+        self.inspect_enabled = True
 
     def enable_inspect(self):
         self.inspect_enabled = True

@@ -1,6 +1,3 @@
-import bpy
-from debug import log
-
 display_text_and_conditions = [
     ("Boxcutter", "C.active_object.mode == 'OBJECT' and context.workspace.tools.from_space_view3d_mode('OBJECT').idname == 'Boxcutter'"),
     ("Affect Only Origin", "C.active_object.mode == 'OBJECT' and getattr(C.active_object, 'use_transform_data_origin', False)"),
@@ -23,33 +20,3 @@ console_test_data = [
     ("X-Mirror", "True and False"),
     ("Affect Only Locations", "True and True"),
 ]
-
-
-class GenTextLines:
-    def __init__(self):
-        pass
-
-    def eval(self, expression):
-        value = None
-        try:
-            value = eval(expression, globals(), locals())
-        except:
-            log.error("Error evaluating expression: {}".format(expression))
-        return value
-
-    def get_text_lines(self):
-        text_lines = []
-        for text, condition in console_test_data:
-            if self.eval(condition):
-                text_lines.append(text)
-        text_lines = list(reversed(text_lines))
-        return text_lines
-
-
-if __name__ == "__main__":
-    log.header("GenTextLines Test")
-    gtl = GenTextLines()
-    for text, condition in console_test_data:
-        log.info("{}: {}".format(text, gtl.eval(condition)))
-    log.header("get_text_lines()")
-    log.info(gtl.get_text_lines())

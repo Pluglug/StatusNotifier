@@ -48,4 +48,4 @@ def unregister():
 
 
 if __name__ == "__main__":
-    print("Status Notifier v{}".format(VERSION))
+    log.info(f"{bl_info['name']} v{bl_info['version']}")
