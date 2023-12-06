@@ -1,7 +1,5 @@
 import bpy
 import os
-from . dev.vlog import log
-from . dev.flags import *
 
 
 VERSION = None

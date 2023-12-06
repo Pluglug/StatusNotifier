@@ -2,8 +2,8 @@ import bpy
 import blf
 
 from addon import is_40
-from .dev.vlog import log
-from .dev.flags import *
+
+from debug import log, DBG_INIT, DBG_OPS, DBG_HANDLERS, log_exec
 
 
 def blf_size(font_id, size):
@@ -11,7 +11,6 @@ def blf_size(font_id, size):
         blf.size(font_id, size)
     else:
         blf.size(font_id, size, 72)
-
 
 
 def get_screen_position(context, text, alignment, offset_x, offset_y, font_id=0):
@@ -168,13 +167,34 @@ class TEXT_OT_activate_handler(bpy.types.Operator):
     bl_idname = "text.activate_handler"
     bl_label = "Activate Text Handler"
 
+    @classmethod
+    def poll(cls, context):
+        return not text_display_handler.is_active()
+
+    @log_exec
     def execute(self, context):
         text_display_handler.start(context)
         return {'FINISHED'}
 
+
+class TEXT_OT_deactivate_handler(bpy.types.Operator):
+    """Deactivate the text display handler"""
+    bl_idname = "text.deactivate_handler"
+    bl_label = "Deactivate Text Handler"
+
+    @classmethod
+    def poll(cls, context):
+        return text_display_handler.is_active()
+
+    @log_exec
+    def execute(self, context):
+        text_display_handler.stop()
+        return {'FINISHED'}
+
+
 def activate_handler():
     bpy.ops.text.activate_handler()
-    return None  # properly removed here.
+    return None  # Stop the timer
 
 
 if __name__ == "__main__":

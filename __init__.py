@@ -1,12 +1,11 @@
 import bpy
-import blf
-# import os
-from bpy.props import *
-from bpy.types import Operator, AddonPreferences
 
-import addon
+from addon import VERSION, BL_VERSION
 from preferences import StatusNotifierAddonPreferences
-from overlay import TEXT_OT_activate_handler, activate_handler, text_display_handler
+from overlay import TEXT_OT_activate_handler, activate_handler
+
+from debug import log, DBG_INIT
+
 
 bl_info = {
     "name": "Status Notifier",
@@ -20,23 +19,33 @@ bl_info = {
 }
 
 
-addon.VERSION = bl_info["version"]
-addon.BL_VERSION = bl_info["blender"]
+VERSION = bl_info["version"]
+BL_VERSION = bl_info["blender"]
+
+
+classes = [
+    StatusNotifierAddonPreferences,
+    TEXT_OT_activate_handler,
+    TEXT_OT_deactivate_handler
+]
 
 
 def register():
-    bpy.utils.register_class(StatusNotifierAddonPreferences)
-
-    bpy.utils.register_class(TEXT_OT_activate_handler)
+    DBG_INIT and log.header("Registering addon...")
+    for cls in classes:
+        bpy.utils.register_class(cls)
+        DBG_INIT and log.info("Registered class: %s", cls)
     bpy.app.timers.register(activate_handler, first_interval=1.0)
 
-def unregister():
-    text_display_handler.stop()
-    bpy.utils.unregister_class(TEXT_OT_activate_handler)
 
-    bpy.utils.unregister_class(StatusNotifierAddonPreferences)
+def unregister():
+    # text_display_handler.stop()
+    bpy.ops.text.deactivate_handler()
+    DBG_INIT and log.header("Unregistering addon...")
+    for cls in reversed(classes):
+        bpy.utils.unregister_class(cls)
+        DBG_INIT and log.info("Unregistered class: %s", cls)
 
 
 if __name__ == "__main__":
-    # push test
     pass
