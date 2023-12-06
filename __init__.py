@@ -2,7 +2,7 @@ import bpy
 
 from addon import VERSION, BL_VERSION
 from preferences import StatusNotifierAddonPreferences
-from overlay import TEXT_OT_activate_handler, activate_handler
+from overlay import operator_classes, activate_handler
 
 from debug import log, DBG_INIT
 
@@ -25,9 +25,9 @@ BL_VERSION = bl_info["blender"]
 
 classes = [
     StatusNotifierAddonPreferences,
-    TEXT_OT_activate_handler,
-    TEXT_OT_deactivate_handler
 ]
+
+classes += operator_classes
 
 
 def register():
@@ -48,4 +48,4 @@ def unregister():
 
 
 if __name__ == "__main__":
-    pass
+    print("Status Notifier v{}".format(VERSION))

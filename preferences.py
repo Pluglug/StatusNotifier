@@ -11,8 +11,7 @@ from bpy.props import (
     FloatVectorProperty,
 )
 
-from .dev.vlog import log
-from .dev.flags import *
+from debug import log
 
 
 class StatusNotifierAddonPreferences(AddonPreferences):

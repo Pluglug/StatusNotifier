@@ -2,8 +2,10 @@ import contextlib
 import inspect
 import os
 
-from ..addon import ADDON_ID
-ADDON_ID = "bonecraft"
+try:
+    from addon import ADDON_ID
+except:
+    ADDON_ID = "MyAddon"
 
 
 CONSOLE_COLOR_INFO = '\033[34m'
@@ -93,7 +95,7 @@ log = VisualLog()
 # log.error(*args)
 # log.warning(*args)
 
-# Note: Should consider indenting like this:
+# Memo: Should consider indenting like this:
 # DBG_TREE and logi(" " * len(path) + "/".join(path))
 
 if __name__ == "__main__":

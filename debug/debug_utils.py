@@ -1,7 +1,8 @@
-from vlog import log
-from debug_flags import *
+from debug.vlog import log
+from debug.debug_flags import DBG_OPS
 
 import functools
+
 
 def log_exec(func):
     @functools.wraps(func)
@@ -15,7 +16,3 @@ def log_exec(func):
             log.info(f"Finished {self.bl_idname}")
         return result
     return wrapper
-
-
-if __name__ == "__main__":
-    pass
