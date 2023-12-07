@@ -11,8 +11,7 @@ ADDON_PATH = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
 
 
 def uprefs():
-    return getattr(bpy.context, "user_preferences", None) or \
-        getattr(bpy.context, "preferences", None)
+    return getattr(bpy.context, "preferences", None)
 
 
 def prefs():
